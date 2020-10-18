@@ -8,6 +8,8 @@ class Root(tk.Tk):
 
         self.label.pack()
 
+
 if __name__ == "__main__":
     root = Root()
-    root.mainloop()
+    root.update()
+    # root.mainloop()
