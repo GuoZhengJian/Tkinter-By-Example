@@ -38,6 +38,16 @@ class Todo(tk.Tk):
         self.colour_schemes = [{"bg": "lightgrey", "fg": "black"}, {"bg": "grey", "fg": "white"}]
 
         current_tasks = self.load_tasks()
+        """
+        核心:
+        	初始加载数据库内所有内容
+        	用户输入后        - 直接显示
+        	用户输入后 - 按钮 - 存入数据库 (存入数据库后不会再循环加载到内容了)
+        
+        警告:
+            尝试过初始化迭代全局列表来持续假如内容, 虽然也可实现, 但是会有新增内容的同
+            时会出现闪烁, 且内容条目越多, 闪烁月明显. 故该方法不可取!!!
+        """
         for task in current_tasks:
             task_text = task[0]
             self.add_task(None, task_text, True)
@@ -62,6 +72,7 @@ class Todo(tk.Tk):
             new_task.pack(side=tk.TOP, fill=tk.X)
 
             self.tasks.append(new_task)
+            print(1)
 
             if not from_db:
                 self.save_task(task_text)
@@ -87,6 +98,7 @@ class Todo(tk.Tk):
 
     def set_task_colour(self, position, task):
         _, task_style_choice = divmod(position, 2)
+  
 
         my_scheme_choice = self.colour_schemes[task_style_choice]
 
